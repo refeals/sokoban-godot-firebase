@@ -1,0 +1,5 @@
+/kenney_sokobanpack
+.import/
+*.translation
+export_presets.cfg
+.mono/
