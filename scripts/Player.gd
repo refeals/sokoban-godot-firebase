@@ -1,6 +1,11 @@
-extends KinematicBody2D
+extends Sprite
 
-onready var area2d = $Area2D
+onready var moveTo = $MoveTo
+onready var destinationPos: Vector2 = $MoveTo.global_position
+
+export var moveSpeed: float = 500
+
+var isMoving: bool = false
 
 var canMoveTo = {
   "ui_up": true,
@@ -10,48 +15,36 @@ var canMoveTo = {
 }
 
 func _input(event: InputEvent) -> void:
-  if event.is_action_pressed("ui_up"):
-    setAreaPosition("ui_up")
-    movePlayer("ui_up")
+  if (isMoving):
+    return
 
-  if event.is_action_pressed("ui_down"):
-    setAreaPosition("ui_down")
-    movePlayer("ui_down")
+  var dirStr: String = ""
 
-  if event.is_action_pressed("ui_left"):
-    setAreaPosition("ui_left")
-    movePlayer("ui_left")
+  if event.is_action_pressed("ui_up"):      dirStr = "ui_up"
+  elif event.is_action_pressed("ui_down"):  dirStr = "ui_down"
+  elif event.is_action_pressed("ui_left"):  dirStr = "ui_left"
+  elif event.is_action_pressed("ui_right"): dirStr = "ui_right"
 
-  if event.is_action_pressed("ui_right"):
-    setAreaPosition("ui_right")
-    movePlayer("ui_right")
+  if (dirStr != ""):
+    movePlayer(dirStr)
 
-func setAreaPosition(direction: String):
-  var vec: Vector2
+func _process(delta):
+  if (isMoving):
+    global_position = $MoveTo.global_position.move_toward(destinationPos, delta * moveSpeed)
 
-  match direction:
-    "ui_up":
-      vec = Vector2(0, -32)
-    "ui_down":
-      vec = Vector2(0, 32)
-    "ui_left":
-      vec = Vector2(-32, 0)
-    "ui_right":
-      vec = Vector2(32, 0)
-
-  area2d.global_position = global_position + vec
+  if global_position == destinationPos:
+    isMoving = false
 
 func movePlayer(direction: String):
-  var vec: Vector2
+  isMoving = true
+  destinationPos = global_position + setVectorOnInput(direction)
 
-  match direction:
-    "ui_up":
-      vec = Vector2(0, -32)
-    "ui_down":
-      vec = Vector2(0, 32)
-    "ui_left":
-      vec = Vector2(-32, 0)
-    "ui_right":
-      vec = Vector2(32, 0)
 
-  position = position + vec
+# Helpers
+
+func setVectorOnInput(inputStr: String):
+  match inputStr:
+    "ui_up":    return Vector2(0, -32)
+    "ui_down":  return Vector2(0, 32)
+    "ui_left":  return Vector2(-32, 0)
+    "ui_right": return Vector2(32, 0)
