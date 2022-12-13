@@ -30,13 +30,20 @@ func move(dir):
   ray.force_raycast_update()
 
   if !ray.is_colliding():
-    # position += inputs[dir] * tile_size
-    var tween = get_tree().create_tween()
-    tween.tween_property(self, "position", position + inputs[dir] * tile_size, 1.0 / animation_speed).set_trans(Tween.TRANS_SINE)
-    moving = true
-    # animPlayer.play(dir)
-    tween.tween_callback(self, 'allowMovement')
-    moving = false
+    createMovement(dir)
+  else:
+    var collider = ray.get_collider()
+    if (collider.name == "Box"):
+      createMovement(dir)
+      collider.createMovement(dir)
+
+func createMovement(dir):
+  var tween = get_tree().create_tween()
+  tween.tween_property(self, "position", position + inputs[dir] * tile_size, 1.0 / animation_speed).set_trans(Tween.TRANS_SINE)
+  moving = true
+  # animPlayer.play(dir)
+  tween.tween_callback(self, 'allowMovement')
+  moving = false
 
 func allowMovement():
   moving = false
