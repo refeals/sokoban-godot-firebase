@@ -4,9 +4,11 @@
 [ext_resource path="res://scripts/Box.gd" type="Script" id=2]
 
 [sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 16, 16 )
+extents = Vector2( 14, 14 )
 
 [node name="Box" type="Area2D"]
+collision_layer = 3
+collision_mask = 3
 script = ExtResource( 2 )
 
 [node name="Sprite" type="Sprite" parent="."]
@@ -23,3 +25,7 @@ shape = SubResource( 1 )
 position = Vector2( 16, 16 )
 cast_to = Vector2( 0, 30 )
 collide_with_areas = true
+
+[connection signal="area_entered" from="." to="." method="_on_Box_area_entered"]
+[connection signal="area_exited" from="." to="." method="_on_Box_area_exited"]
+[connection signal="updateActive" from="." to="." method="_on_Box_updateActive"]

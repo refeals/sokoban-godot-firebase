@@ -33,9 +33,12 @@ func move(dir):
     createMovement(dir)
   else:
     var collider = ray.get_collider()
-    if (collider.has_method("checkIfCanMove") and collider.checkIfCanMove(dir)):
-      createMovement(dir)
-      collider.createMovement(dir)
+    if (collider.has_method("getItemType")):
+      if (collider.getItemType() == "Box" and collider.checkIfCanMove(dir)):
+        createMovement(dir)
+        collider.createMovement(dir)
+      else:
+        createMovement(dir)
 
 func createMovement(dir):
   var tween = get_tree().create_tween()
