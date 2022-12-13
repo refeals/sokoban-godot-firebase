@@ -1,5 +1,7 @@
 extends Area2D
 
+onready var ray = $RayCast2D
+
 var tile_size = 32
 var animation_speed = 20
 
@@ -10,7 +12,12 @@ var inputs = {
   "ui_down": Vector2.DOWN
 }
 
-func createMovement(dir, obj = self):
+func checkIfCanMove(dir):
+  ray.cast_to = inputs[dir] * tile_size
+  ray.force_raycast_update()
+  return !ray.is_colliding()
+
+func createMovement(dir):
   var tween = get_tree().create_tween()
-  tween.tween_property(obj, "position", position + inputs[dir] * tile_size, 1.0 / animation_speed).set_trans(Tween.TRANS_SINE)
+  tween.tween_property(self, "position", position + inputs[dir] * tile_size, 1.0 / animation_speed).set_trans(Tween.TRANS_SINE)
 

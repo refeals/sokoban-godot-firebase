@@ -33,7 +33,7 @@ func move(dir):
     createMovement(dir)
   else:
     var collider = ray.get_collider()
-    if (collider.name == "Box"):
+    if (collider.has_method("checkIfCanMove") and collider.checkIfCanMove(dir)):
       createMovement(dir)
       collider.createMovement(dir)
 

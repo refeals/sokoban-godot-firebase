@@ -18,3 +18,8 @@ region_rect = Rect2( 32, 0, 32, 32 )
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2( 16, 16 )
 shape = SubResource( 1 )
+
+[node name="RayCast2D" type="RayCast2D" parent="."]
+position = Vector2( 16, 16 )
+cast_to = Vector2( 0, 30 )
+collide_with_areas = true
