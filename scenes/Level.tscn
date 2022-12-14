@@ -12,17 +12,17 @@ tile_data = PoolIntArray( 0, 0, 0, 1, 0, 0, 2, 0, 0, 3, 0, 0, 4, 0, 0, 5, 0, 0, 
 
 [node name="LevelObjs" type="Node2D" parent="."]
 
-[node name="Box" parent="LevelObjs" instance=ExtResource( 2 )]
-position = Vector2( 160, 96 )
-
-[node name="Box2" parent="LevelObjs" instance=ExtResource( 2 )]
-position = Vector2( 96, 96 )
-
 [node name="Checker" parent="LevelObjs" instance=ExtResource( 4 )]
 position = Vector2( 96, 192 )
 
 [node name="Checker2" parent="LevelObjs" instance=ExtResource( 4 )]
 position = Vector2( 160, 192 )
+
+[node name="Box" parent="LevelObjs" instance=ExtResource( 2 )]
+position = Vector2( 160, 96 )
+
+[node name="Box2" parent="LevelObjs" instance=ExtResource( 2 )]
+position = Vector2( 96, 96 )
 
 [node name="Player" parent="." instance=ExtResource( 1 )]
 position = Vector2( 96, 64 )

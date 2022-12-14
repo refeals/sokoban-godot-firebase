@@ -49,5 +49,5 @@ func _on_Box_area_exited(area: Area2D) -> void:
       emit_signal("updateActive", false)
 
 func _on_Box_updateActive(_active) -> void:
-  modulate  = Color(1, 1, 1, 1) if _active else Color(200, 200, 200, 1.0)
+  modulate  = Color(0.5, 0.5, 0.5, 1.0) if _active else Color(1, 1, 1, 1.0)
   active = _active
