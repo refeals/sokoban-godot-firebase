@@ -65,4 +65,3 @@ func draw_box() -> void:
   box.position.y = y
   boxContainer.add_child(box)
   tilemap.set_cell(x / tile_size, y / tile_size, 1)
-  print(box.ray.collide_with_areas)

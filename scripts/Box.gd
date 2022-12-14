@@ -29,6 +29,9 @@ func checkIfCanMove(dir):
     return true
 
   var collider = ray.get_collider()
+  print(collider.name)
+  if collider.name == "TileMap":
+    return false
   if collider.has_method("getItemType") and collider.getItemType() != "Box":
     return true
   else:
